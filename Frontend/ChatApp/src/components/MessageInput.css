@@ -1,0 +1,40 @@
+.message-input {
+  height: 60px;
+  background: #1e1e2f;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  gap: 10px;
+  border-top: 1px solid #2f2f45;
+  position: sticky;
+  bottom: 0;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #2a2a3d;
+  color: #fff;
+}
+
+.message-input input::placeholder {
+  color: #aaa;
+}
+
+.emoji-btn,
+.send-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.emoji-btn:hover,
+.send-btn:hover {
+  color: #4cafef;
+}

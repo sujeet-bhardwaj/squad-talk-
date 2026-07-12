@@ -1,0 +1,9 @@
+.dashboardflex{
+    display: flex;
+   
+}
+.dashboardflex2{
+    display: flex;
+    flex-direction:column;
+    flex-grow:1;
+}

@@ -1,0 +1,57 @@
+.chat-header {
+  height: 70px;
+  background: #1e1e2f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #2f2f45;
+}
+
+.chat-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.chat-user-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #4cafef;
+}
+
+.chat-user-info h4 {
+  margin: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.online-dot {
+  font-size: 14px;
+}
+
+.chat-user-info p {
+  margin: 0;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.icon:hover {
+  color: #4cafef;
+}
