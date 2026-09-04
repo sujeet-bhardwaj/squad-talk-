@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+Backend/node_modules/
+Frontend/ChatApp/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+Backend/.env
+Frontend/ChatApp/.env
+*.env.local
+
+# Build & Bundling
+dist/
+Frontend/ChatApp/dist/
+build/
+
+# Uploads (ignore uploaded images but keep folder)
+Backend/uploads/*
+!Backend/uploads/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

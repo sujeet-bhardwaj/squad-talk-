@@ -23,6 +23,7 @@ function Sidebar() {
     fetchChats();
   }, [userId]);
 
+   const BACKEND_URL = "http://localhost:3000"; 
  const searchUser = async (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -53,11 +54,20 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      {/* Top Section */}
-      <div className="sidebar-top">
-        <img src="https://via.placeholder.com/60" alt="Profile" className="profile-pic" onClick={profilePic} />
-        <h3 className="username">{userName}</h3>
-      </div>
+<div className="sidebar-top">
+  <img 
+    src={
+      user && user.profilePicture 
+        ? `${BACKEND_URL}${user.profilePicture}?t=${new Date().getTime()}` 
+        : "https://via.placeholder.com/60" // Agar user ke paas image nahi hai, tabhi placeholder dikhega
+    } 
+    alt="Profile" 
+    className="profile-pic" 
+    onClick={profilePic} 
+    style={{ objectFit: "cover", borderRadius: "50%" }} // Image gol aur properly fit hone ke liye
+  />
+  <h3 className="username">{userName || user?.name}</h3>
+</div>
 
       {/* Search Box */}
       <div className="search-box">

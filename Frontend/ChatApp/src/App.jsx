@@ -1,28 +1,48 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { Dashboard } from "./pages/Dashboard";
-import { Profile } from "./components/Profile";
-import { createContext,useState} from "react";
-export const AuthContext = createContext();
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuthStore } from "./store/useAuthStore";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import AuthPage from "./pages/AuthPage";
+import ChatPage from "./pages/ChatPage";
+import ProfilePage from "./pages/ProfilePage";
+import NotFoundPage from "./pages/NotFoundPage";
+
 function App() {
-  const [user, setUser] = useState(()=>{
-   const storeUser=localStorage.getItem("user")
-   return storeUser?localStorage.getItem("user"):null
-  });
+  const { theme, isAuthenticated } = useAuthStore();
+
+  // Synchronize data-theme on html root
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
-     <AuthContext.Provider value={{ user, setUser }}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />  
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        {/* Dynamic Root Redirection */}
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/chat" replace />
+            ) : (
+              <Navigate to="/auth" replace />
+            )
+          }
+        />
+
+        {/* Public Authentication Screen */}
+        <Route path="/auth" element={<AuthPage />} />
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
+
+        {/* 404 Fallback */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
-      </AuthContext.Provider>
   );
 }
 
