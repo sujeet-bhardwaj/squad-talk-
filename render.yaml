@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: squad-talk
+    runtime: node
+    buildCommand: cd Backend && npm install
+    startCommand: cd Backend && node index.js
+    plan: free
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://sujeetbhardwaj9580:sujeet9580@cluster0.ucxmtf2.mongodb.net/ChatDb?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: super_secret_jwt_key_realtime_chat_2026_secure
+      - key: CLIENT_URL
+        value: "*"
