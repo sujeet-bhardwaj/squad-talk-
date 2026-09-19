@@ -16,7 +16,7 @@ export const useSocketStore = create((set, get) => ({
       currentSocket.disconnect();
     }
 
-    const socket = io(API_BASE_URL, {
+    const socket = io(API_BASE_URL || undefined, {
       auth: { token },
       transports: ["websocket", "polling"],
       reconnectionAttempts: 10,

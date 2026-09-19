@@ -74,6 +74,26 @@ app.get("/api/health", (req, res) => {
 app.use("/register", authRoutes);
 app.use("/login", authRoutes);
 
+// Static Frontend Build Serving
+const frontendDist = path.join(__dirname, "..", "Frontend", "ChatApp", "dist");
+app.use(express.static(frontendDist));
+
+// Client-Side Routing Fallback for Express 5 (SPA)
+app.use((req, res, next) => {
+  if (
+    req.method !== "GET" ||
+    req.path.startsWith("/api") ||
+    req.path.startsWith("/uploads") ||
+    req.path.startsWith("/socket.io")
+  ) {
+    return next();
+  }
+  const indexPath = path.join(frontendDist, "index.html");
+  res.sendFile(indexPath, (err) => {
+    if (err) next();
+  });
+});
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error("[Server Error]:", err.stack);
