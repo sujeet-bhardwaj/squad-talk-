@@ -2,6 +2,7 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const path = require("path");
+const fs = require("fs");
 const dotenv = require("dotenv");
 
 // Load environment variables
@@ -76,7 +77,9 @@ app.use("/login", authRoutes);
 
 // Static Frontend Build Serving
 const frontendDist = path.join(__dirname, "..", "Frontend", "ChatApp", "dist");
-app.use(express.static(frontendDist));
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+}
 
 // Client-Side Routing Fallback for Express 5 (SPA)
 app.use((req, res, next) => {
@@ -89,9 +92,10 @@ app.use((req, res, next) => {
     return next();
   }
   const indexPath = path.join(frontendDist, "index.html");
-  res.sendFile(indexPath, (err) => {
-    if (err) next();
-  });
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  return next();
 });
 
 // Global Error Handler

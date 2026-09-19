@@ -2,8 +2,8 @@ services:
   - type: web
     name: squad-talk
     runtime: node
-    buildCommand: cd Backend && npm install
-    startCommand: cd Backend && node index.js
+    buildCommand: npm install --prefix Backend && npm install --prefix Frontend/ChatApp && npm run build --prefix Frontend/ChatApp
+    startCommand: node Backend/index.js
     plan: free
     envVars:
       - key: MONGO_URI

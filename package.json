@@ -1,0 +1,10 @@
+{
+  "name": "squad-talk",
+  "version": "1.0.0",
+  "description": "Squad Talk - Full-Stack Real-Time Chat Application",
+  "scripts": {
+    "install:all": "npm install --prefix Backend && npm install --prefix Frontend/ChatApp",
+    "build": "npm install --prefix Backend && npm install --prefix Frontend/ChatApp && npm run build --prefix Frontend/ChatApp",
+    "start": "node Backend/index.js"
+  }
+}

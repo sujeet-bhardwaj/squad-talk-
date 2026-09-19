@@ -12,8 +12,6 @@ Frontend/ChatApp/.env
 *.env.local
 
 # Build & Bundling
-dist/
-Frontend/ChatApp/dist/
 build/
 
 # Uploads (ignore uploaded images but keep folder)
