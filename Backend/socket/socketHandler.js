@@ -9,7 +9,10 @@ const onlineUsers = new Map();
 const initSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:5173",
+      origin: (origin, callback) => {
+        // Dynamically allow origins for seamless Socket.io connection across Vercel & custom domains
+        callback(null, true);
+      },
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     },

@@ -26,10 +26,29 @@ const server = http.createServer(app);
 initSocket(server);
 
 // Middleware
-const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:3000",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [clientUrl, "http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (mobile apps, curl, Postman, health check)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app") ||
+        origin.endsWith(".onrender.com") ||
+        origin.includes("localhost") ||
+        origin.includes("127.0.0.1")
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
